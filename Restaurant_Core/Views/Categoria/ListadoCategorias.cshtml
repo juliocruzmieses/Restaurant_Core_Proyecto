@@ -1,0 +1,41 @@
+﻿@model IEnumerable<Restaurant_Core.Models.CategoriaModel>
+
+@{
+    ViewData["Title"] = "ListadoCategorias";
+}
+
+<h1 class="text-center">Módulo de Categorias</h1>
+
+<p>
+    <a asp-action="Create" class="btn btn-primary">Crear Nueva Categoría</a>
+</p>
+<table class="table table-striped table-hover">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.idCategoria)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.nomCategoria)
+            </th>
+            <th>Opciones</th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.idCategoria)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.nomCategoria)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.idCategoria })
+                @*@Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |*@
+                @*@Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })*@
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

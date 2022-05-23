@@ -1,0 +1,36 @@
+﻿@model Restaurant_Core.Models.MesaModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1 class="text-center">Módulo Mesas</h1>
+<h4 class="text-center">Agregar Mesas</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="idMesa" class="control-label"></label>
+                <input asp-for="idMesa" class="form-control" />
+                <span asp-validation-for="idMesa" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="descMesa" class="control-label"></label>
+                <input asp-for="descMesa" class="form-control" />
+                <span asp-validation-for="descMesa" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <a asp-action="Create" asp-controller="Mesa" class="btn btn-primary">Nueva</a>
+                <input type="submit" value="Guardar Mesa" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="ListadoMesas">Regresar al listado</a>
+</div>
+<div>@ViewBag.mensaje</div>
+

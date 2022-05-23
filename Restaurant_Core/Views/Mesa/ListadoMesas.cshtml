@@ -1,0 +1,41 @@
+﻿@model IEnumerable<Restaurant_Core.Models.MesaModel>
+
+@{
+    ViewData["Title"] = "ListadoMesas";
+}
+
+<h1 class="text-center">Módulo de mesas</h1>
+
+<p>
+    <a asp-action="Create" class="btn btn-primary">Crear Nueva Mesa</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.idMesa)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.descMesa)
+            </th>
+            <th>Opciones</th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.idMesa)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.descMesa)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.idMesa })
+                @*@Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |*@
+                @*@Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })*@
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

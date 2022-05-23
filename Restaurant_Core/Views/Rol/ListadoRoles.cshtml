@@ -1,0 +1,41 @@
+﻿@model IEnumerable<Restaurant_Core.Models.RolModel>
+
+@{
+    ViewData["Title"] = "ListadoRoles";
+}
+
+<h1>Listado de Roles</h1>
+
+<p>
+    <a asp-action="Create">Nuevo Rol</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.idRol)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.nomRol)
+            </th>
+            <th>Opciones</th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.idRol)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.nomRol)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id=item.idRol})
+                @*@Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |*@
+                @*@Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })*@
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

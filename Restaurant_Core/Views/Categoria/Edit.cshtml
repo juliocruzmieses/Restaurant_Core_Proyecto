@@ -1,0 +1,35 @@
+﻿@model Restaurant_Core.Models.CategoriaModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1 class="text-center">Módulo Categorias</h1>
+<h4 class="text-center">Editar Categorias</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="idCategoria" class="control-label"></label>
+                <input asp-for="idCategoria" class="form-control" />
+                <span asp-validation-for="idCategoria" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="nomCategoria" class="control-label"></label>
+                <input asp-for="nomCategoria" class="form-control" />
+                <span asp-validation-for="nomCategoria" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Actualizar" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="ListadoCategorias">Regresar al Listado</a>
+</div>
+<div>@ViewBag.mensaje</div>
+
