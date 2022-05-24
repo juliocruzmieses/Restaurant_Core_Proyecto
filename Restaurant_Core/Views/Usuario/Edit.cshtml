@@ -1,0 +1,64 @@
+﻿@model Restaurant_Core.Models.UsuarioModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Actualizacion de datos</h1>
+
+<h4>Usuario</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="id_usuario" class="control-label"></label>
+                <input asp-for="id_usuario" class="form-control" readonly/>
+                <span asp-validation-for="id_usuario" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="nom_usuario" class="control-label"></label>
+                <input asp-for="nom_usuario" class="form-control" />
+                <span asp-validation-for="nom_usuario" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ape_usuario" class="control-label"></label>
+                <input asp-for="ape_usuario" class="form-control" />
+                <span asp-validation-for="ape_usuario" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="email" class="control-label"></label>
+                <input asp-for="email" class="form-control" />
+                <span asp-validation-for="email" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="fono_user" class="control-label"></label>
+                <input asp-for="fono_user" class="form-control" />
+                <span asp-validation-for="fono_user" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="id_rol" class="control-label"></label>
+                <input asp-for="id_rol" class="form-control" />
+                <span asp-validation-for="id_rol" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="id_distrito" class="control-label"></label>
+                <input asp-for="id_distrito" class="form-control" />
+                <span asp-validation-for="id_distrito" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="estado" class="control-label"></label>
+                <input asp-for="estado" class="form-control" />
+                <span asp-validation-for="estado" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Guardar" class="btn btn-primary" />
+                <a asp-action="ListadoUsuarios" asp-controller="Usuario" class="btn btn-primary">Retornar</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>@ViewBag.mensaje</div>
+
