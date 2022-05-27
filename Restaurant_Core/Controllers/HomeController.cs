@@ -1,6 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Session;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
 using Restaurant_Core.Models;
 using System;
 using System.Collections.Generic;
@@ -21,7 +23,10 @@ namespace Restaurant_Core.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            UsuarioModel user = new UsuarioModel();
+            var res = HttpContext.Session.GetString("usuario");
+            user = JsonConvert.DeserializeObject<UsuarioModel>(res);
+            return View(user);
         }
 
         public IActionResult Privacy()

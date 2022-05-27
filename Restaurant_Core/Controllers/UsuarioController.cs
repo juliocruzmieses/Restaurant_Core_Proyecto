@@ -8,6 +8,7 @@ using Restaurant_Core.Models;
 using System.Data;
 using System.Data.SqlClient;
 using Microsoft.Extensions.Configuration;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Restaurant_Core.Controllers
 {
@@ -19,6 +20,61 @@ namespace Restaurant_Core.Controllers
         {
             _Iconfig = Iconfig;
         }
+
+        /// <summary>
+        /// listado de roles
+        /// </summary>
+        /// <returns></returns>
+        IEnumerable<RolModel> Roles()
+        {
+            List<RolModel> lista = new List<RolModel>();
+            using (SqlConnection cn = new SqlConnection(_Iconfig["ConnectionStrings:cn"]))
+            {
+                SqlCommand cmd = new SqlCommand("usp_RolListar", cn);
+                cn.Open();
+                SqlDataReader dr = cmd.ExecuteReader();
+                while (dr.Read())
+                {
+                    lista.Add(new RolModel()
+                    {
+                        idRol = dr.GetInt32(0),
+                        nomRol = dr.GetString(1)
+                    });
+                }
+            }
+            return lista;
+        }
+
+        /// <summary>
+        /// listado de distritos
+        /// </summary>
+        /// <returns></returns>
+        /// 
+
+        IEnumerable<DistritoModel> Distritos()
+        {
+            List<DistritoModel> lista = new List<DistritoModel>();
+            using (SqlConnection cn = new SqlConnection(_Iconfig["ConnectionStrings:cn"]))
+            {
+                SqlCommand cmd = new SqlCommand("usp_DistritoListar", cn);
+                cn.Open();
+                SqlDataReader dr = cmd.ExecuteReader();
+                while (dr.Read())
+                {
+                    lista.Add(new DistritoModel()
+                    {
+                        idDistrito = dr.GetInt32(0),
+                        nomDistrito = dr.GetString(1)
+                    });
+                }
+            }
+            return lista;
+        }
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        /// 
 
         IEnumerable<UsuarioModel> Usuarios()
         {
@@ -57,16 +113,20 @@ namespace Restaurant_Core.Controllers
             return reg;
         }
 
-        public IActionResult Create()
+        public async Task<IActionResult> Create()
         {
+            ViewBag.roles = new SelectList(await Task.Run(() => Roles()), "idRol", "nomRol");
+            ViewBag.distritos = new SelectList(await Task.Run(() => Distritos()), "idDistrito", "nomDistrito");
             return View(new UsuarioModel());
         }
 
         [HttpPost]
-        public IActionResult Create(UsuarioModel reg)
+        public async Task<IActionResult> Create(UsuarioModel reg)
         {
             if (!ModelState.IsValid)
             {
+                ViewBag.roles = new SelectList(await Task.Run(() => Roles()), "idRol", "nomRol", reg.id_rol);
+                ViewBag.distritos = new SelectList(await Task.Run(() => Distritos()), "idDistrito", "nomDistrito", reg.id_distrito);
                 return View(reg);
             }
             string mensaje = string.Empty;
@@ -92,23 +152,29 @@ namespace Restaurant_Core.Controllers
                     mensaje = ex.Message.ToString();
                 }
                 ViewBag.mensaje = mensaje;
+                ViewBag.roles = new SelectList(await Task.Run(() => Roles()), "idRol", "nomRol", reg.id_rol);
+                ViewBag.distritos = new SelectList(await Task.Run(() => Distritos()), "idDistrito", "nomDistrito", reg.id_distrito);
                 return View(reg);
             }
         }
 
-        public IActionResult Edit(int id)
+        public async Task<IActionResult> Edit(int id)
         {
             UsuarioModel reg = BuscarUsuario(id);
             if (reg == null)
                 return RedirectToAction("ListadoUsuarios");
+            ViewBag.roles = new SelectList(await Task.Run(() => Roles()), "idRol", "nomRol", reg.id_rol);
+            ViewBag.distritos = new SelectList(await Task.Run(() => Distritos()), "idDistrito", "nomDistrito", reg.id_distrito);
             return View(reg);
         }
 
         [HttpPost]
-        public IActionResult Edit(UsuarioModel reg)
+        public async Task<IActionResult> Edit(UsuarioModel reg)
         {
             if (!ModelState.IsValid)
             {
+                ViewBag.roles = new SelectList(await Task.Run(() => Roles()), "idRol", "nomRol", reg.id_rol);
+                ViewBag.distritos = new SelectList(await Task.Run(() => Distritos()), "idDistrito", "nomDistrito", reg.id_distrito);
                 return View(reg);
             }
             string mensaje = string.Empty;
@@ -135,6 +201,8 @@ namespace Restaurant_Core.Controllers
                     mensaje = ex.Message.ToString();
                 }
                 ViewBag.mensaje = mensaje;
+                ViewBag.roles = new SelectList(await Task.Run(() => Roles()), "idRol", "nomRol", reg.id_rol);
+                ViewBag.distritos = new SelectList(await Task.Run(() => Distritos()), "idDistrito", "nomDistrito", reg.id_distrito);
                 return View(reg);
             }
         }
