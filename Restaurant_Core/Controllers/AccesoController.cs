@@ -51,7 +51,19 @@ namespace Restaurant_Core.Controllers
 
                 cn.Open();
 
-                objUsuario.id_usuario = Convert.ToInt32(cmd.ExecuteScalar().ToString());
+                SqlDataReader dr = cmd.ExecuteReader();
+                while (dr.Read())
+                {
+                    objUsuario.id_usuario = dr.GetInt32(0);
+                    objUsuario.nom_usuario = dr.GetString(1);
+                    objUsuario.ape_usuario = dr.GetString(2);
+                    objUsuario.username = dr.GetString(3);
+                    objUsuario.email = dr.GetString(4);
+                    objUsuario.fono_user = dr.GetString(5);
+                    objUsuario.id_rol = dr.GetInt32(6);
+                    objUsuario.id_distrito = dr.GetInt32(7);
+                    objUsuario.estado = dr.GetInt32(8);
+                }
             }
             if (objUsuario.id_usuario != 0)
             { 

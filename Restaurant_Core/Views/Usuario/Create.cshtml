@@ -33,13 +33,15 @@
                 <span asp-validation-for="fono_user" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="id_rol" class="control-label"></label>
-                <input asp-for="id_rol" class="form-control" />
+                <label asp-for="nom_rol" class="control-label"></label>
+                @*<input asp-for="id_rol" class="form-control" />*@
+                <select asp-for="id_rol" asp-items="@ViewBag.roles" class="form-control"></select>
                 <span asp-validation-for="id_rol" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="id_distrito" class="control-label"></label>
-                <input asp-for="id_distrito" class="form-control" />
+                <label asp-for="nom_distrito" class="control-label"></label>
+                @*<input asp-for="id_distrito" class="form-control" />*@
+                <select asp-for="id_distrito" asp-items="@ViewBag.distritos" class="form-control"></select>
                 <span asp-validation-for="id_distrito" class="text-danger"></span>
             </div>
             <div class="form-group">

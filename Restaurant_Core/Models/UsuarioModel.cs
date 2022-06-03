@@ -21,9 +21,11 @@ namespace Restaurant_Core.Models
         public string email { get; set; }
         [Display(Name = "Telefono")]
         public string fono_user { get; set; }
+        [Display(Name = "Rol")]
         public int id_rol { get; set; }
         [Display(Name = "Rol")]
         public string nom_rol { get; set; }
+        [Display(Name = "Distrito")]
         public int id_distrito { get; set; }
         [Display(Name = "Distrito")]
         public string nom_distrito { get; set; }
