@@ -10,6 +10,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
+using Microsoft.AspNetCore.Authentication.Cookies;
+
 namespace Restaurant_Core
 {
     public class Startup
@@ -24,8 +26,14 @@ namespace Restaurant_Core
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllersWithViews();            
-            services.AddSession();
+            services.AddControllersWithViews();
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+                .AddCookie(option =>
+                {
+                    option.LoginPath = "/Acceso/Login";
+                    option.ExpireTimeSpan = TimeSpan.FromMinutes(5);
+                    option.AccessDeniedPath = "/Home/Privacy";
+                });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -42,17 +50,17 @@ namespace Restaurant_Core
                 app.UseHsts();
             }
             app.UseHttpsRedirection();
-            app.UseStaticFiles();
-            app.UseSession();
+            app.UseStaticFiles();            
             app.UseRouting();
 
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Restaurant}/{action=Login}/{id?}");
+                    pattern: "{controller=Acceso}/{action=Login}/{id?}");
                     //pattern: "{controller=Distrito}/{action=ListadoDistritos}/{id?}");
         });
         }

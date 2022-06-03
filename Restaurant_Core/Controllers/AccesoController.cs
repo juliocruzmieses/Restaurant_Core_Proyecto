@@ -8,20 +8,20 @@ using Restaurant_Core.Models;
 using System.Data;
 using System.Data.SqlClient;
 using Microsoft.Extensions.Configuration;
-using Microsoft.AspNetCore.Session;
 using Microsoft.AspNetCore.Http;
 using System.Text;
 using System.Security.Cryptography;
-using Newtonsoft.Json;
-using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication;
+using System.Security.Claims;
 
 namespace Restaurant_Core.Controllers
 {
-    public class RestaurantController : Controller
+    public class AccesoController : Controller
     {
         private readonly IConfiguration _Iconfig;
                 
-        public RestaurantController(IConfiguration Iconfig)
+        public AccesoController(IConfiguration Iconfig)
         {
             _Iconfig = Iconfig;
         }              
@@ -36,9 +36,9 @@ namespace Restaurant_Core.Controllers
             return View();
         }
 
-        [HttpPost]      
+        [HttpPost]
 
-        public IActionResult Login(UsuarioModel objUsuario)
+        public async Task<IActionResult> Login(UsuarioModel objUsuario)
         {
             objUsuario.pass = ConvertirSha256(objUsuario.pass);
 
@@ -53,17 +53,33 @@ namespace Restaurant_Core.Controllers
 
                 objUsuario.id_usuario = Convert.ToInt32(cmd.ExecuteScalar().ToString());
             }
-            if (objUsuario.id_usuario != 0) 
-            {                
-                HttpContext.Session.SetString("usuario", JsonConvert.SerializeObject(objUsuario));               
+            if (objUsuario.id_usuario != 0)
+            { 
+                var _claims = new List<Claim>
+                {
+                    new Claim(ClaimTypes.Name, objUsuario.username),
+                    new Claim("username", objUsuario.pass)
+                };
+
+                var _claimsIdentity = new ClaimsIdentity(_claims, CookieAuthenticationDefaults.AuthenticationScheme);
+
+                await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(_claimsIdentity));
+
                 return RedirectToAction("Index", "Home");
             }
             else
             {
                 ViewData["Mensaje"] = "Usuario no encontrado";
                 return View();
-            }            
+            }
         }
+
+        public async Task<IActionResult> Salir()
+        {
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            return RedirectToAction("Login", "Acceso");
+        }
+
         public static string ConvertirSha256(string texto)
         {
             StringBuilder Sb = new StringBuilder();
