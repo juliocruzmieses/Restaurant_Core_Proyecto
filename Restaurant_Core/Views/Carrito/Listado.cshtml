@@ -1,0 +1,82 @@
+﻿@model IEnumerable<Restaurant_Core.Models.Carrito>
+
+@{
+    ViewData["Title"] = "Listado";
+}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css" integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
+
+
+<h1>Realizar Pedido</h1>
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.id_producto)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.nom_producto)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.precio)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.nom_categoria)
+            </th>
+             <th> 
+                 Selecciona Mesa
+             </th>
+            <th>
+                Ingresa Cantidad
+            </th>
+             <th>
+                @Html.DisplayNameFor(model => model.stock)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.activo)
+            </th>
+            <th>Opciones</th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.id_producto)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.nom_producto)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.precio)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.nom_categoria)
+            </td>
+             <td>
+                <select class="ListadoMesas form-control" id="listarMesas" name="listarMesas">
+	                    <option value="">Selecciona</option>
+	                    <option value="0"> Mesa 1</option>
+                        <option value="1">Mesa 2</option>
+	                     <option value="2">Mesa 3</option>
+                 </select>
+            </td>
+            <td>
+                <input type="text" name="cantidad"/>;
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.stock)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.activo)
+            </td>
+            <td>
+                @Html.ActionLink("Agregar","Agregar")
+            </td>
+            
+
+        </tr>
+}
+    </tbody>
+</table>
