@@ -26,10 +26,7 @@ namespace Restaurant_Core.Controllers
 
         public IActionResult Index()
         {
-            //UsuarioModel user = new UsuarioModel();
-            //var res = HttpContext.Session.GetString("usuario");
-            //user = JsonConvert.DeserializeObject<UsuarioModel>(res);
-            return View(/*user*/);
+            return View();
         }
 
         public IActionResult Privacy()
