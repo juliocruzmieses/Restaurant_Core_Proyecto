@@ -94,8 +94,10 @@ namespace Restaurant_Core.Controllers
                         username = dr.GetString(3),
                         email = dr.GetString(4),
                         fono_user = dr.GetString(5),
-                        nom_rol = dr.GetString(6),
-                        nom_distrito = dr.GetString(7)
+                        id_rol = dr.GetInt32(6),
+                        nom_rol = dr.GetString(7),
+                        id_distrito = dr.GetInt32(8),
+                        nom_distrito = dr.GetString(9)
                     });
                 }
             }
