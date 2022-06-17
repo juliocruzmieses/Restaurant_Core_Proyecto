@@ -10,8 +10,11 @@ using System.Data.SqlClient;
 using Microsoft.Extensions.Configuration;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
+using Microsoft.AspNetCore.Authorization;
+
 namespace Restaurant_Core.Controllers
 {
+    [Authorize]
     public class UsuarioController : Controller
     {
 
