@@ -78,9 +78,10 @@ namespace Restaurant_Core.Controllers
                         precio = dr.GetDecimal(2),
                         ruta_imagen = dr.GetString(3),
                         nombre_imagen = dr.GetString(4),
-                        nom_categoria = dr.GetString(5),
-                        stock = dr.GetInt32(6),
-                        activo = dr.GetBoolean(7)
+                        id_categoria = dr.GetInt32(5),
+                        nom_categoria = dr.GetString(6),
+                        stock = dr.GetInt32(7),
+                        activo = dr.GetBoolean(8)
                     });
                 }
             }
